@@ -1,4 +1,9 @@
-hackathon-voting
+Hackathon Voting Machine
 ================
 
-This is a realtime voting system for Hackathons.
+This is a realtime voting system for Hackathons backed by Redis and Node.js.
+
+## Install
+
+git clone https://github.com/ccowan/hackithon-voting.git
+
