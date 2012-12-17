@@ -6,8 +6,8 @@ config = {
       name: 'hackathon'
     },
     github: {
-      clientID: '0f40413d1a7ec9d5aa66',
-      clientSecret: 'aa4c7c2aa346d0b450c49027d33b581aedf59795',
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
       callbackUrl: 'http://localhost:3000/auth/github/callback' 
     }
   },
