@@ -19,8 +19,8 @@
     "passport": "~0.1.15",
     "passport-github": "~0.1.3",
     "ron": "0.0.8",
-    "app": "./app",
-    "vein": "~0.5.1"
+    "vein": "~0.5.1",
+    "connect-redis": "~1.4.5"
   },
   "subdomain": "hackathon-voting",
   "engines": {
