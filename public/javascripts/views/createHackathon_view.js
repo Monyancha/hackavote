@@ -17,7 +17,6 @@ define([
     className: 'home',
 
     initialize: function (options) {
-      console.log(_);
       _.bindAll(this, 'resetForm', 'submit');
     },
 

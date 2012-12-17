@@ -5,10 +5,7 @@ body {
 a {
   color: #00b7ff;
 }
-.login h1 {
-  text-align: center;
-}
-.login p {
+.login {
   text-align: center;
 }
 .events .table {
