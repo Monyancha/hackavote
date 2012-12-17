@@ -1,0 +1,33 @@
+.container
+  .row
+    .span12.events
+      if events.length
+      h2 Your Hackathons 
+      table.table.table-striped
+        tbody
+          each event in events
+            tr
+              td
+                h4
+                  a(href='#hackathon/#{event.slug}') #{event.name}
+              td
+                if event.votingStatus === 'open'
+                  span.label.label-info Voting Open
+                else
+                  span.label.label-important Voting Closed 
+                |&nbsp;
+                if event.registrationStatus === 'open'
+                  span.label.label-info Registration Open 
+                else
+                  span.label.label-important Registration Closed 
+              td.controls
+                a.btn.btn-small(href='#editHackathon/#{event.id}')
+                  i.icon-pencil(style='margin: 3px 0 0 0')
+                  |Edit
+  .row
+    .span12
+      h2 Hackathons  
+      if hackathons.length
+        p Below are the Hackathons you are participating in.
+      else
+        p You are not currently participating in any Hackathons.

@@ -1,0 +1,43 @@
+.container
+  .row
+    .span12
+      h2 Create a Hackathon
+      p Use the form below to create your Hackathon Event.  (* required fields)
+      form.form-horizontal.well
+
+        .control-group
+          label.control-label(for='name') Name *
+          .controls
+            input(name='name', type='text').span5.required
+
+        .control-group
+          label.control-label(for='slug') URL * 
+          .controls
+            .input-prepend
+              span.add-on http://#{host}/#hackathon/
+              input(name='slug', type='text').required
+
+        .control-group
+          label.control-label(for='description') Description
+          .controls
+            textarea(name='description').span5
+
+        
+        .control-group
+          label.control-label(for='votingStatus') Voting Status 
+          .controls
+            select(name='votingStatus')
+              option(value='closed') Closed
+              option(value='open') Open
+
+        .control-group
+          label.control-label(for='registrationStatus') Team Registration 
+          .controls
+            select(name='registrationStatus')
+              option(value='closed') Closed
+              option(value='open') Open
+
+        .form-actions
+          button(type='submit').btn.btn-primary Create Hackathon
+          | &nbsp;
+          button(type='button').btn.cancel Cancel

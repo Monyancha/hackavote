@@ -1,0 +1,25 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00b7ff;
+}
+.login h1 {
+  text-align: center;
+}
+.login p {
+  text-align: center;
+}
+.events .table {
+  border-bottom: 1px solid #ddd;
+}
+.events .table td {
+  vertical-align: middle;
+}
+.events .controls {
+  text-align: right;
+}
+.events h3 {
+  font-weight: normal;
+}

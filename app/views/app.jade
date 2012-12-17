@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container
+        a.brand
+          i.icon-check(style='margin: 5px 10px 0 0;')
+          | Hackavote
+        ul.nav
+          li
+            a(href='#home') Home
+          li
+            a(href='#createHackathon') Create a Hackathon
+        .pull-right
+          ul.nav
+            li
+              p.navbar-text 
+                img(src='#{user.avatar}', style="width: 25; height: 25px; margin: 0 5px 0 0; border: 1px solid #666;")
+                | #{user.name}
+            li.divider-vertical
+            li
+              a(href='/logout') Logout
+  block body 

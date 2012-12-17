@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .container.login
+    .row
+      .span12
+        h1
+          i.icon-check(style='margin: 14px 30px 0 0;')
+          | Hackavote 
+        p Before you can vote you need to login via your GitHub account.
+    .row
+      .span12
+        p
+          a.btn.btn-large(href='/auth/github')
+            i.icon-github
+            | &nbsp;&nbsp;Login via GitHub
