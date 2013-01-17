@@ -34,7 +34,7 @@ else
 buf.push('<span class="label label-important">Registration Closed </span>');
 }
 buf.push('</td><td class="controls"><a');
-buf.push(attrs({ 'href':('#editHackathon/' + (event.id) + ''), "class": ('btn') + ' ' + ('btn-small') }, {"href":true}));
+buf.push(attrs({ 'href':('#editHackathon/' + (event._id) + ''), "class": ('btn') + ' ' + ('btn-small') }, {"href":true}));
 buf.push('><i style="margin: 3px 0 0 0" class="icon-pencil"></i>Edit</a></td></tr>');
     }
   } else {
@@ -62,7 +62,7 @@ else
 buf.push('<span class="label label-important">Registration Closed </span>');
 }
 buf.push('</td><td class="controls"><a');
-buf.push(attrs({ 'href':('#editHackathon/' + (event.id) + ''), "class": ('btn') + ' ' + ('btn-small') }, {"href":true}));
+buf.push(attrs({ 'href':('#editHackathon/' + (event._id) + ''), "class": ('btn') + ' ' + ('btn-small') }, {"href":true}));
 buf.push('><i style="margin: 3px 0 0 0" class="icon-pencil"></i>Edit</a></td></tr>');
    }
   }

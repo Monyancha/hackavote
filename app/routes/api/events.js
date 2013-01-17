@@ -1,11 +1,16 @@
-var Events = require('../../models/events');
 var api = require('../api');
-var eventsApi = api(Events);
+var es = require('../../lib/elastic');
+var eventsApi = api('events');
 
 eventsApi.checkSlug = function (req, res, next) {
-  Events.list({ slug: req.body.slug }, function (err, events) {
-    console.log(events);
-    res.json(events.length === 0, 200);
+
+  es.search({ query: 'slug:'+req.body.slug }, function (err, results) {
+    console.log(req.body, results);
+    if (results.total > 0 && results.hits[0]._id === req.body.event_id) {
+      return res.json(true, 200);
+    }
+
+    res.json(results.total === 0, 200);
   });
 };
 

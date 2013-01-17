@@ -7,7 +7,7 @@ var http = require('http');
 var path = require('path');
 var auth = require('./app/routes/auth');
 var dynamicHelpers = require('./app/lib/dynamic_helpers');
-var RedisStore = require('connect-redis')(express);
+var cookieSessions = require('./app/lib/cookieSessions');
 var redis = require('./app/lib/redis');
 
 var app = express();
@@ -21,7 +21,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
-  app.use(express.session({ store: new RedisStore({ client: redis }), secret: 'aj3jc8anJK9a!93nankduKIduI@nnavi191993Kk30-52' }));
+  app.use(cookieSessions('hackasess'));
   app.use(auth.initialize());
   app.use(auth.session());
   app.use(auth.restrict());

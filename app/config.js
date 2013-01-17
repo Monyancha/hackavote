@@ -5,6 +5,10 @@ config = {
       host: '127.0.0.1',
       name: 'hackathon'
     },
+    couchdb: {
+      url: 'http://hackavote:monkey@localhost:5984',
+      database: 'hackavote'
+    },
     github: {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,

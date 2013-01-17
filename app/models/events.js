@@ -1,14 +1,19 @@
-var ron = require('../lib/ron');
-var Events = ron.get('events', {
-  temporal: true                   
-});
+module.exports = function (sequelize, DataTypes) {
 
-Events.property('id', { identifier: true });
-Events.property('slug', { index: true, unique: true });
-Events.property('user', { index: true, type: 'int' });
-Events.property('name', {});
-Events.property('description', {});
-Events.property('votingStatus', { index: true });
-Events.property('registrationStatus', { index: true });
+  var Users = sequelize.import(__dirname+'/users');
+  var Events = sequelize.define('Events',  {
+    name: DataTypes.STRING,
+    slug: DataTypes.STRING, 
+    description: DataTypes.TEXT,
+    votingStatus: DataTypes.STRING,
+    registrationStatus: DataTypes.STRING 
+  });
 
-module.exports = Events;
+  Events.belongsTo(Users);
+  Events.hasMany(Users, { as: 'Follower' });
+  Users.hasMany(Events);
+
+  return Events;
+
+
+};

@@ -1,0 +1,13 @@
+.container
+  .row
+    .span12
+      h2 Edit Hackathon
+      p Use the form below to edit your Hackathon Event.  (* required fields)
+      form.form-horizontal.well
+
+        include hackathonForm
+
+        .form-actions
+          button(type='submit').btn.btn-primary Save Hackathon
+          | &nbsp;
+          a(href="#home").btn.cancel Cancel

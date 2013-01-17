@@ -1,49 +1,49 @@
 var passport = require('passport');
-var Users = require('../models/users');
 var GitHubStrategy = require('passport-github').Strategy;
+var db = require('../lib/couchdb');
+var es = require('../lib/elastic');
 var config = require('../config');
 var _ = require('lodash');
 
 passport.serializeUser(function (user, done) {
-  console.log(user);
-  done(null, user.id);
+  done(null, user._id);
 });
 
 passport.deserializeUser(function (id, done) {
-  Users.get({ id: id }, function (err, record) {
-    if (err) return done(err);
-    done(null, record);
+  db.get(id, function (err, body) {
+    if(err) return done(); 
+    done(null, body);
   });
 });
 
 passport.use(new GitHubStrategy(config.github, function(accessToken, refreshToken, profile, done) {
 
   var uid = profile.provider+'-'+profile.id;
-  Users.list({ uid: uid }, function (err, users) {
-    if (err) {
-      console.log(err.stack);
-      done(err);
-    }
 
-    if (users[0]) {
-      Users.update({
-        id: users[0].id,
-        uid: profile.provider+'-'+profile.id,
-        name: profile.displayName,
-        url: profile.profileUrl,
-        email: profile._json.email,
-        username: profile._json.login,
-        avatar: profile._json.avatar_url,
-        location: profile._json.location,
-        bio: profile._json.bio
-      }, function (err, user) {
-        done(null, user);
+  es.search({ query: 'uid:'+uid+' AND type:user' }, function (err, results, res) {
+    if (err) return done(err);
+    if (results.total > 0) {
+      var user = results.hits[0]._source;
+      user.name = profile.displayName;
+      user.url = profile.profileUrl;
+      user.email = profile._json.email;
+      user.username = profile._json.login;
+      user.avatar_url = profile._json.avatar_url;
+      user.location = profile._json.location;
+      user.bio = profile._json.bio;
+
+      db.insert(user, user._id, function (err, body) {
+        if (err) return done(err);
+        user._rev = body.rev;
+        return done(null, user);
       });
+
       return;
     }
 
-    Users.create({
+    var newUser = {
       uid: profile.provider+'-'+profile.id,
+      type: 'user',
       name: profile.displayName,
       url: profile.profileUrl,
       email: profile._json.email,
@@ -51,14 +51,17 @@ passport.use(new GitHubStrategy(config.github, function(accessToken, refreshToke
       avatar: profile._json.avatar_url,
       location: profile._json.location,
       bio: profile._json.bio
-    }, function (err, user) {
-      if (err) {
-        console.log(err.stack);
-        return done(err);
-      }
-      done(null, user); 
+    };
+
+    db.insert(newUser, function (err, body) {
+      if (err) return done(err);         
+      newUser._id = body.id;
+      newUser._rev = body.rev;
+      done(null, newUser);
     });
+
   });
+
 }));
 
 module.exports = passport;
